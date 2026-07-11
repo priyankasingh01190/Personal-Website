@@ -5,8 +5,9 @@ A hand-built static site (HTML, CSS, vanilla JS). No build step, no framework - 
 ## Files
 - `index.html` - all the content
 - `styles.css` - all the styling
-- `script.js` - reveal animations, active-section index, mobile menu, contact form
+- `script.js` - reveal animations, active-section index, mobile menu, contact form, image lightbox
 - `favicon.svg` - the "pupil" mark
+- `assets/` - photos, the research poster, and certificate images (keep this folder alongside the others when deploying)
 
 ## Deploy to Vercel
 
