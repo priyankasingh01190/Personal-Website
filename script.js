@@ -1,5 +1,5 @@
 /* ============================================================
-   Priyanka Singh — portfolio behaviour
+   Priyanka Singh - portfolio behaviour
    ============================================================ */
 
 /* --- Contact form ---
@@ -14,6 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
   /* footer year */
   const yr = document.getElementById("year");
   if (yr) yr.textContent = new Date().getFullYear();
+
+  /* ---------- scroll progress bar ---------- */
+  const progress = document.getElementById("scrollProgress");
+  if (progress) {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const p = max > 0 ? h.scrollTop / max : 0;
+      progress.style.transform = "scaleX(" + p + ")";
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+  }
 
   /* ---------- scroll reveal ---------- */
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -91,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        setStatus("That email doesn't look right — mind checking it?", "err");
+        setStatus("That email doesn't look right - mind checking it?", "err");
         return;
       }
 
@@ -114,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
           });
           const data = await res.json();
           if (data.success) {
-            setStatus("Thanks — your message is on its way.", "ok");
+            setStatus("Thanks - your message is on its way.", "ok");
             form.reset();
           } else {
             setStatus("Something went wrong. Please email me directly at " + CONTACT_EMAIL + ".", "err");
@@ -129,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       /* Fallback path: open a pre-filled email in the visitor's mail app */
       const subject = encodeURIComponent(`Portfolio message from ${name}`);
-      const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`);
+      const body = encodeURIComponent(`${message}\n\n- ${name}\n${email}`);
       window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
       setStatus("Opening your email app…", "ok");
     });
