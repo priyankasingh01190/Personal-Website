@@ -154,4 +154,39 @@ document.addEventListener("DOMContentLoaded", () => {
     status.textContent = msg;
     status.className = "form-status" + (kind ? " " + kind : "");
   }
+
+  /* ---------- lightbox ---------- */
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  const lightboxClose = document.getElementById("lightboxClose");
+  if (lightbox && lightboxImg) {
+    const open = (src, alt) => {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || "";
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+    const close = () => {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      lightboxImg.src = "";
+    };
+    document.querySelectorAll("a.lb").forEach((a) => {
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        const full = a.getAttribute("data-full") || a.getAttribute("href");
+        const img = a.querySelector("img");
+        open(full, img ? img.alt : "");
+      });
+    });
+    lightboxClose.addEventListener("click", close);
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox.classList.contains("open")) close();
+    });
+  }
 });
